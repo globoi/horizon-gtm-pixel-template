@@ -1,2 +1,7 @@
 homepage: "https://github.com/globoi/horizon-gtm-pixel-template/tree/main"
 documentation: "https://github.com/globoi/horizon-gtm-pixel-template/blob/main/README.md"
+versions:
+   - sha: 6494a14d121790fb1908d114bcb90bf052e5406d
+     changeNotes:
+      Version 0.1.0
+      Initial release, includes support for parameterizable events.
