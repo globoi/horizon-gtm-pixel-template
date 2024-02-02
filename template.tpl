@@ -10,7 +10,10 @@ ___INFO___
 
 {
   "displayName": "GPixel",
-  "categories": ["ADVERTISING", "ANALYTICS"],
+  "categories": [
+    "ADVERTISING",
+    "ANALYTICS"
+  ],
   "type": "TAG",
   "id": "cvt_temp_public_id",
   "version": 1,
@@ -320,16 +323,6 @@ ___WEB_PERMISSIONS___
   {
     "instance": {
       "key": {
-        "publicId": "read_title",
-        "versionId": "1"
-      },
-      "param": []
-    },
-    "isRequired": true
-  },
-  {
-    "instance": {
-      "key": {
         "publicId": "set_cookies",
         "versionId": "1"
       },
@@ -573,5 +566,4 @@ scenarios: []
 ___NOTES___
 
 Created on 02/02/2024, 10:45:57
-
 
