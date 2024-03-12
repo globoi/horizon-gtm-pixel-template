@@ -81,8 +81,8 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "SubmitForm"
       },
       {
-        "value": "Contact",
-        "displayValue": "Contact"
+        "value": "InitiateCheckout",
+        "displayValue": "InitiateCheckout"
       }
     ],
     "simpleValueType": true
@@ -136,10 +136,9 @@ const schemaId = 'globopixel-event';
 const version = '0.1';
 const cookieExpires = '2099-12-31T23:59:59.999Z';
 
-// Prepare
 const url = getUrl();
 
-// Browser ID
+// Geração do browserId
 const browserIds = getCookieValues("GBID");
 
 log(browserIds);
@@ -169,7 +168,7 @@ if (!data.pixelURL) {
   }
 } else {
   // Base
-  let pixelURL = data.pixelURL; // Use o pixelURL fornecido em data
+  let pixelURL = data.pixelURL;
 
   // Configuração do evento
   pixelURL = pixelURL + '?environment=web';
@@ -180,6 +179,7 @@ if (!data.pixelURL) {
   // Propriedades do schema
   pixelURL = pixelURL + '&properties.eventType=' + data.eventType;
   pixelURL = pixelURL + '&properties.pixelClientId=' + data.clientId;
+  pixelURL = pixelURL + '&properties.browserId=' + _(browserId);
 
   // Campos essenciais
   pixelURL = pixelURL + '&horizonClientReferer=' + _(getReferrerUrl());
@@ -187,7 +187,7 @@ if (!data.pixelURL) {
   pixelURL = pixelURL + '&url=' + _(url);
   pixelURL = pixelURL + '&horizonClientVersion=0.1.1';
   pixelURL = pixelURL + '&clientTs=' + _(getTimestampMillis());
-  pixelURL = pixelURL + '&clientUUID=' + _(browserId);
+  pixelURL = pixelURL + '&clientUUID=' + _(generateUUID());
   pixelURL = pixelURL + '&horizonActionUUID=' + _(generateUUID());
   pixelURL = pixelURL + '&horizonRelationId=' + _(browserId);
   log(pixelURL);
@@ -251,6 +251,10 @@ ___WEB_PERMISSIONS___
               {
                 "type": 1,
                 "string": "glb_uid"
+              },
+              {
+                "type": 1,
+                "string": "gpixel_uid"
               }
             ]
           }
@@ -501,6 +505,53 @@ ___WEB_PERMISSIONS___
                   {
                     "type": 1,
                     "string": "glb_uid"
+                  },
+                  {
+                    "type": 1,
+                    "string": "globo.com"
+                  },
+                  {
+                    "type": 1,
+                    "string": "*"
+                  },
+                  {
+                    "type": 1,
+                    "string": "any"
+                  },
+                  {
+                    "type": 1,
+                    "string": "any"
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "name"
+                  },
+                  {
+                    "type": 1,
+                    "string": "domain"
+                  },
+                  {
+                    "type": 1,
+                    "string": "path"
+                  },
+                  {
+                    "type": 1,
+                    "string": "secure"
+                  },
+                  {
+                    "type": 1,
+                    "string": "session"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "gpixel_uid"
                   },
                   {
                     "type": 1,
