@@ -92,6 +92,12 @@ ___TEMPLATE_PARAMETERS___
     "name": "pixelURL",
     "displayName": "Pixel URL",
     "simpleValueType": true
+  },
+  {
+    "type": "TEXT",
+    "name": "eventValue",
+    "displayName": "Event Value",
+    "simpleValueType": true
   }
 ]
 
@@ -180,6 +186,9 @@ if (!data.pixelURL) {
   pixelURL = pixelURL + '&properties.eventType=' + data.eventType;
   pixelURL = pixelURL + '&properties.pixelClientId=' + data.clientId;
   pixelURL = pixelURL + '&properties.browserId=' + _(browserId);
+  if(data.eventValue) {
+      pixelURL = pixelURL + '&properties.eventValue=' + data.eventValue;
+  }
 
   // Campos essenciais
   pixelURL = pixelURL + '&horizonClientReferer=' + _(getReferrerUrl());
@@ -617,4 +626,5 @@ scenarios: []
 ___NOTES___
 
 Created on 02/02/2024, 10:45:57
+
 
