@@ -98,6 +98,18 @@ ___TEMPLATE_PARAMETERS___
     "name": "eventValue",
     "displayName": "Event Value",
     "simpleValueType": true
+  },
+  {
+    "type": "TEXT",
+    "name": "orderId",
+    "displayName": "orderId",
+    "simpleValueType": true
+  },
+  {
+    "type": "TEXT",
+    "name": "gadvId",
+    "displayName": "gadvId",
+    "simpleValueType": true
   }
 ]
 
@@ -139,7 +151,7 @@ function _(v) {
 
 // Config
 const schemaId = 'globopixel-event';
-const version = '0.1';
+const version = '0.2';
 const cookieExpires = '2099-12-31T23:59:59.999Z';
 
 const url = getUrl();
@@ -189,6 +201,13 @@ if (!data.pixelURL) {
   if(data.eventValue) {
       pixelURL = pixelURL + '&properties.eventValue=' + data.eventValue;
   }
+  if(data.orderId){
+    pixelURL = pixelURL + '&properties.orderId=' + data.orderId;
+  }
+  if(data.gadvId){
+     pixelURL = pixelURL + '&properties.gadvId=' + data.gadvId;
+  }
+  
 
   // Campos essenciais
   pixelURL = pixelURL + '&horizonClientReferer=' + _(getReferrerUrl());
