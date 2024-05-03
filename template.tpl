@@ -1,11 +1,3 @@
-___TERMS_OF_SERVICE___
-
-By creating or modifying this file you agree to Google Tag Manager's Community
-Template Gallery Developer Terms of Service available at
-https://developers.google.com/tag-manager/gallery-tos (or such other URL as
-Google may provide), as modified from time to time.
-
-
 ___INFO___
 
 {
@@ -42,7 +34,7 @@ ___TEMPLATE_PARAMETERS___
     "type": "SELECT",
     "name": "eventType",
     "displayName": "Trigger Event",
-    "macrosInSelect": false,
+    "macrosInSelect": true,
     "selectItems": [
       {
         "value": "PageView",
@@ -125,6 +117,8 @@ const getTimestampMillis = require('getTimestampMillis');
 const generateRandom = require('generateRandom');
 const setCookie = require('setCookie');
 const getCookieValues = require('getCookieValues');
+const getQueryParameters = require('getQueryParameters');
+
 
 log('data =', data);
 
@@ -152,7 +146,7 @@ function _(v) {
 // Config
 const schemaId = 'globopixel-event';
 const version = '0.2';
-const cookieExpires = '2099-12-31T23:59:59.999Z';
+const cookieExpires = 'Thu, 31 Dec 2099 23:59:59 GMT';
 
 const url = getUrl();
 
@@ -167,8 +161,8 @@ if(browserIds.length == 0) {
   log('Cookie not set');
   const newBrowserId = "GBID." + getTimestampMillis() + "." + generateUUID();
   
-  setCookie("GBID", newBrowserId, {path: "/", domain:"auto"} );
-  
+   setCookie("GBID", newBrowserId, {path: "/", domain:"auto", 'expires': cookieExpires});
+
   browserId = newBrowserId;
   
 } else {
@@ -177,6 +171,26 @@ if(browserIds.length == 0) {
 }
 
 log(browserId);
+
+
+let gadvId = getQueryParameters("gadv_id");
+let gadvIdCookie = getCookieValues("gadvId");
+
+
+log("valor do gadvId:" + gadvId);
+log("cookie antigo do gadvId:" + gadvIdCookie);
+
+//Verificar gadvId na url
+  if (gadvId){
+    //Verifica se não estiver setado o cookie ou se o cookie é igual ao gadvId que está na Url
+    if (gadvIdCookie.length == 0 || gadvIdCookie[0] != gadvId){
+      log('Setting new gadvId Cookie');
+      setCookie("gadvId", gadvId , {path: "/", domain:"auto", 'max-age': 7776000});
+    }
+  }
+  
+log("novo cookie do gadvId:" + getCookieValues("gadvId"));
+
 
 // Verifica se data.pixelURL está vazio
 if (!data.pixelURL) {
@@ -198,17 +212,16 @@ if (!data.pixelURL) {
   pixelURL = pixelURL + '&properties.eventType=' + data.eventType;
   pixelURL = pixelURL + '&properties.pixelClientId=' + data.clientId;
   pixelURL = pixelURL + '&properties.browserId=' + _(browserId);
-  if(data.eventValue) {
-      pixelURL = pixelURL + '&properties.eventValue=' + data.eventValue;
+  if(data.eventValue){
+    pixelURL = pixelURL + '&properties.eventValue=' + data.eventValue;
   }
   if(data.orderId){
     pixelURL = pixelURL + '&properties.orderId=' + data.orderId;
   }
-  if(data.gadvId){
-     pixelURL = pixelURL + '&properties.gadvId=' + data.gadvId;
+ if (gadvId){
+   pixelURL = pixelURL + '&properties.gadvId=' + gadvId;
   }
-  
-
+ 
   // Campos essenciais
   pixelURL = pixelURL + '&horizonClientReferer=' + _(getReferrerUrl());
   pixelURL = pixelURL + '&referer=' + _(getReferrerUrl());
@@ -242,6 +255,9 @@ ___WEB_PERMISSIONS___
           }
         }
       ]
+    },
+    "clientAnnotations": {
+      "isEditedByUser": true
     },
     "isRequired": true
   },
@@ -283,6 +299,10 @@ ___WEB_PERMISSIONS___
               {
                 "type": 1,
                 "string": "gpixel_uid"
+              },
+              {
+                "type": 1,
+                "string": "gadvId"
               }
             ]
           }
@@ -598,6 +618,53 @@ ___WEB_PERMISSIONS___
                     "string": "any"
                   }
                 ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "name"
+                  },
+                  {
+                    "type": 1,
+                    "string": "domain"
+                  },
+                  {
+                    "type": 1,
+                    "string": "path"
+                  },
+                  {
+                    "type": 1,
+                    "string": "secure"
+                  },
+                  {
+                    "type": 1,
+                    "string": "session"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "gadvId"
+                  },
+                  {
+                    "type": 1,
+                    "string": "*"
+                  },
+                  {
+                    "type": 1,
+                    "string": "*"
+                  },
+                  {
+                    "type": 1,
+                    "string": "any"
+                  },
+                  {
+                    "type": 1,
+                    "string": "any"
+                  }
+                ]
               }
             ]
           }
@@ -639,7 +706,20 @@ ___WEB_PERMISSIONS___
 
 ___TESTS___
 
-scenarios: []
+scenarios:
+- name: Untitled test 1
+  code: |-
+    const mockData = {
+      // Mocked field values
+      "url": "https://gpixel.globo.com/pixel-event?"+ "properties.gadv_id=teste1234",
+      "eventType":"PageView","gtmTagId":2147483646,"gtmEventId":1,"pixelURL": "https://gpixel.globo.com/pixel-event?"
+    };
+
+    // Call runCode to run the template's code.
+    runCode(mockData);
+
+    // Verify that the tag finished successfully.
+    assertApi('gtmOnSuccess').wasCalled();
 
 
 ___NOTES___
