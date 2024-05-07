@@ -1,3 +1,11 @@
+___TERMS_OF_SERVICE___
+
+By creating or modifying this file you agree to Google Tag Manager's Community
+Template Gallery Developer Terms of Service available at
+https://developers.google.com/tag-manager/gallery-tos (or such other URL as
+Google may provide), as modified from time to time.
+
+
 ___INFO___
 
 {
@@ -146,7 +154,7 @@ function _(v) {
 // Config
 const schemaId = 'globopixel-event';
 const version = '0.2';
-const cookieExpires = 'Thu, 31 Dec 2099 23:59:59 GMT';
+const GBIDCookieExpires = 'Thu, 31 Dec 2099 23:59:59 GMT';
 
 const url = getUrl();
 
@@ -161,7 +169,7 @@ if(browserIds.length == 0) {
   log('Cookie not set');
   const newBrowserId = "GBID." + getTimestampMillis() + "." + generateUUID();
   
-   setCookie("GBID", newBrowserId, {path: "/", domain:"auto", 'expires': cookieExpires});
+   setCookie("GBID", newBrowserId, {path: "/", domain:"auto", 'expires': GBIDCookieExpires});
 
   browserId = newBrowserId;
   
@@ -173,19 +181,18 @@ if(browserIds.length == 0) {
 log(browserId);
 
 
+let gadvIdMaxAge = 7776000;
 let gadvId = getQueryParameters("gadv_id");
 let gadvIdCookie = getCookieValues("gadvId");
 
 
-log("valor do gadvId:" + gadvId);
-log("cookie antigo do gadvId:" + gadvIdCookie);
+log("gadvId Parameter: " + gadvId);
+log("Previous gadvId Cookie: " + gadvIdCookie);
 
-//Verificar gadvId na url
   if (gadvId){
-    //Verifica se não estiver setado o cookie ou se o cookie é igual ao gadvId que está na Url
     if (gadvIdCookie.length == 0 || gadvIdCookie[0] != gadvId){
       log('Setting new gadvId Cookie');
-      setCookie("gadvId", gadvId , {path: "/", domain:"auto", 'max-age': 7776000});
+      setCookie("gadvId", gadvId , {path: "/", domain:"auto", 'max-age': gadvIdMaxAge});
     }
   }
   
@@ -725,5 +732,4 @@ scenarios:
 ___NOTES___
 
 Created on 02/02/2024, 10:45:57
-
 
