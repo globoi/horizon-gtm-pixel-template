@@ -158,7 +158,7 @@ const GBIDCookieExpires = 'Thu, 31 Dec 2099 23:59:59 GMT';
 
 const url = getUrl();
 
-// Geração do browserId
+// Generating browserId
 const browserIds = getCookieValues("GBID");
 
 log(browserIds);
@@ -181,25 +181,19 @@ if(browserIds.length == 0) {
 log(browserId);
 
 
-let gadvIdMaxAge = 7776000;
+let secondsIn90Days = 7776000;
 let gadvId = getQueryParameters("gadv_id");
 let gadvIdCookie = getCookieValues("gadvId");
 
 
-log("gadvId Parameter: " + gadvId);
-log("Previous gadvId Cookie: " + gadvIdCookie);
-
-  if (gadvId){
-    if (gadvIdCookie.length == 0 || gadvIdCookie[0] != gadvId){
-      log('Setting new gadvId Cookie');
-      setCookie("gadvId", gadvId , {path: "/", domain:"auto", 'max-age': gadvIdMaxAge});
-    }
+if (gadvId){
+  if (gadvIdCookie.length == 0 || gadvIdCookie[0] != gadvId){
+    log('Setting new gadvId Cookie');
+    setCookie("gadvId", gadvId , {path: "/", domain:"auto", 'max-age': secondsIn90Days});
   }
-  
-log("novo cookie do gadvId:" + getCookieValues("gadvId"));
+}
 
-
-// Verifica se data.pixelURL está vazio
+// Verifies if data.pixelURL is empty
 if (!data.pixelURL) {
   log('Error: pixelURL is empty');
   if (data && typeof data.gtmOnFailure === 'function') {
@@ -209,13 +203,13 @@ if (!data.pixelURL) {
   // Base
   let pixelURL = data.pixelURL;
 
-  // Configuração do evento
+  // Event Configuration
   pixelURL = pixelURL + '?environment=web';
   pixelURL = pixelURL + '&contentType=globopixel';
   pixelURL = pixelURL + '&id=' + _(schemaId);
   pixelURL = pixelURL + '&version=' + _(version);
 
-  // Propriedades do schema
+  // Schema Properties
   pixelURL = pixelURL + '&properties.eventType=' + data.eventType;
   pixelURL = pixelURL + '&properties.pixelClientId=' + data.clientId;
   pixelURL = pixelURL + '&properties.browserId=' + _(browserId);
@@ -229,7 +223,7 @@ if (!data.pixelURL) {
    pixelURL = pixelURL + '&properties.gadvId=' + gadvId;
   }
  
-  // Campos essenciais
+  // Essential Fields
   pixelURL = pixelURL + '&horizonClientReferer=' + _(getReferrerUrl());
   pixelURL = pixelURL + '&referer=' + _(getReferrerUrl());
   pixelURL = pixelURL + '&url=' + _(url);
@@ -732,4 +726,5 @@ scenarios:
 ___NOTES___
 
 Created on 02/02/2024, 10:45:57
+
 
