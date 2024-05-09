@@ -1,11 +1,3 @@
-___TERMS_OF_SERVICE___
-
-By creating or modifying this file you agree to Google Tag Manager's Community
-Template Gallery Developer Terms of Service available at
-https://developers.google.com/tag-manager/gallery-tos (or such other URL as
-Google may provide), as modified from time to time.
-
-
 ___INFO___
 
 {
@@ -191,6 +183,8 @@ if (gadvId){
     log('Setting new gadvId Cookie');
     setCookie("gadvId", gadvId , {path: "/", domain:"auto", 'max-age': secondsIn90Days});
   }
+} else if(gadvIdCookie[0]) {
+    gadvId = gadvIdCookie[0];
 }
 
 // Verifies if data.pixelURL is empty
