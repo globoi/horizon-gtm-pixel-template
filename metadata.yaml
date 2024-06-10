@@ -1,6 +1,10 @@
 homepage: "https://github.com/globoi/horizon-gtm-pixel-template/tree/main"
 documentation: "https://github.com/globoi/horizon-gtm-pixel-template/blob/main/README.md"
 versions:
+  - sha: bd41addedc7975b0c24c2399c334666b8fc43b59
+    changeNotes:
+      Version 0.2.0
+      Add support to orderId and gadvId parameters.
   - sha: 1914c230bf4453e946cbacb17d3abaae7c58ac45
     changeNotes:
       Version 0.1.0
