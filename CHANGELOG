@@ -1,0 +1,14 @@
+# Changelog
+
+## [1.0.0] - 2024-07-10
+### Added
+- Added support for new parameters for advanced customization.
+- Implemented Globo's pixel script for seamless event tracking.
+
+## [0.2.0] - 2024-05-09
+### Added
+- Added support to orderId and gadvId parameters.
+
+## [0.1.0] - 2024-03-12
+### Added
+- Implemented initial release, includes support for parameterizable events.
