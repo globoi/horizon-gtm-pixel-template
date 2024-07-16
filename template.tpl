@@ -323,7 +323,7 @@ log("data=", data);
 
 var pixelData = {};
 const clientVersion = "GTM-1.0";
-const postScriptUrl= "https://s3.glbimg.com/v1/AUTH_da787d4f4e8d46e3ad76d5fa568fe786/gpixel-test/sendGloboPixelEvent.js";
+const postScriptUrl= "https://s3.glbimg.com/v1/AUTH_da787d4f4e8d46e3ad76d5fa568fe786/globo-pixel/prod/sendGloboPixelEvent.js";
 
 // Generates UUID V4
 function generateUUID() {

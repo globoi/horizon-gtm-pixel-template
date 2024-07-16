@@ -22,3 +22,8 @@ To start using GloboPixel:
 - Measure user interactions and campaign performance accurately.
 - Optimize marketing campaigns based on detailed analytics.
 - Gain insights into user behavior to enhance targeting and engagement strategies.
+
+
+#### For Globo Developers
+
+Comprehensive template documentation, including detailed insights into business decisions, is available at [GloboPixel Documentation GTM Template](https://tvglobocorp.sharepoint.com/sites/BigDataAI-PlataformaseServios/SitePages/[GloboPixel]-Documenta%C3%A7%C3%A3o-GTM-Template.aspx).
