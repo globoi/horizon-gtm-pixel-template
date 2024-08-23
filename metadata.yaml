@@ -4,7 +4,7 @@ versions:
   - sha: 1f30ec33981fbb7c871a922894e2517a4ded2222
     changeNotes:
       Version 0.3.0
-      Add integration with the new platform
+      Add integration with the new platform.
   - sha: bd41addedc7975b0c24c2399c334666b8fc43b59
     changeNotes:
       Version 0.2.0
