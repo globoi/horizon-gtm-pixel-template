@@ -1,7 +1,7 @@
 homepage: "https://github.com/globoi/horizon-gtm-pixel-template/tree/main"
 documentation: "https://github.com/globoi/horizon-gtm-pixel-template/blob/main/README.md"
 versions:
-  - sha: 470069ff549e8a0f2d2e82a7232781a2ef9b3757
+  - sha: b3f431d0500f018b4226763856f84bf2a8daa029
     changeNotes:
       Version 0.3.0
       Add integration with the new platform.
