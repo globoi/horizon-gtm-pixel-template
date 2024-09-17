@@ -1,6 +1,9 @@
 homepage: "https://github.com/globoi/horizon-gtm-pixel-template/tree/main"
 documentation: "https://github.com/globoi/horizon-gtm-pixel-template/blob/main/README.md"
 versions:
+  - sha: 4d3c09e4c910cd249af27d8df2d4a0c0a3e33dc7
+      Version 1.0.2
+      Fixed pixelClientId regex.
   - sha: b3f431d0500f018b4226763856f84bf2a8daa029
     changeNotes:
       Version 0.3.0
