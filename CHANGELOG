@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.0] - 2024-12-16
+### Changed
+- Show PII fields
+
 ## [1.0.2] - 2024-09-16
 ### Fixed
 - Fix pixelClientId regex
