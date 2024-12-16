@@ -114,6 +114,114 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "GROUP",
+    "name": "userfields",
+    "displayName": "User Information",
+    "groupStyle": "ZIPPY_CLOSED",
+    "subParams": [
+      {
+        "type": "RADIO",
+        "name": "isHashed",
+        "displayName": "Hashed / Non-Hashed Parameters",
+        "radioItems": [
+          {
+            "value": 1,
+            "displayValue": "SHA256 Parameters"
+          },
+          {
+            "value": 0,
+            "displayValue": "Raw Parameters"
+          }
+        ],
+        "simpleValueType": true
+      },
+      {
+        "type": "TEXT",
+        "name": "email",
+        "displayName": "Email",
+        "simpleValueType": true,
+        "enablingConditions": [
+          {
+            "paramName": "isHashed",
+            "paramValue": 0,
+            "type": "EQUALS"
+          }
+        ],
+        "help": "Email address formatted in lowercase and without spaces (e.g., \"example@example.com\")."
+      },
+      {
+        "type": "TEXT",
+        "name": "hashedEmail",
+        "displayName": "SHA256 Email",
+        "simpleValueType": true,
+        "enablingConditions": [
+          {
+            "paramName": "isHashed",
+            "paramValue": 1,
+            "type": "EQUALS"
+          }
+        ],
+        "help": "Email address hashed using SHA-256 after removing spaces and converting to lowercase."
+      },
+      {
+        "type": "TEXT",
+        "name": "cpf",
+        "displayName": "CPF",
+        "simpleValueType": true,
+        "enablingConditions": [
+          {
+            "paramName": "isHashed",
+            "paramValue": 0,
+            "type": "EQUALS"
+          }
+        ],
+        "help": "CPF formatted without dashes, dots, or spaces (e.g., for CPF \"123.456.789-00\", it should be passed as \"12345678900\")."
+      },
+      {
+        "type": "TEXT",
+        "name": "hashedCpf",
+        "displayName": "SHA256 CPF",
+        "simpleValueType": true,
+        "enablingConditions": [
+          {
+            "paramName": "isHashed",
+            "paramValue": 1,
+            "type": "EQUALS"
+          }
+        ],
+        "help": "CPF hashed using SHA-256 after removing dashes, dots, and spaces (e.g., for CPF \"123.456.789-00\", the value \"12345678900\" should be hashed and might look like \"3f4c5334a9a8b2e1e5d9f55b7a29d0b2e4b68f5c70f89a7f682c64793a0a0f6c\")."
+      },
+      {
+        "type": "TEXT",
+        "name": "phone",
+        "displayName": "Phone",
+        "simpleValueType": true,
+        "enablingConditions": [
+          {
+            "paramName": "isHashed",
+            "paramValue": 0,
+            "type": "EQUALS"
+          }
+        ],
+        "help": "Phone number formatted in E.164 format (e.g., for Brazilian phone number \"+55 11 91234-5678\", it should be passed as \"+5511912345678\")."
+      },
+      {
+        "type": "TEXT",
+        "name": "hashedPhone",
+        "displayName": "SHA256 Phone",
+        "simpleValueType": true,
+        "enablingConditions": [
+          {
+            "paramName": "isHashed",
+            "paramValue": 1,
+            "type": "EQUALS"
+          }
+        ],
+        "help": "Phone number hashed using SHA-256 after removing spaces, letters, and symbols except for the \u0027+\u0027 sign (e.g., for Brazilian phone number \"+55 11 91234-5678\", the value \"+5511912345678\" should be hashed and might look like \"9c7a6d2e8f0b5a3c18d7e5dab78e36f1f63e82e569b3a0e6f3b1a34fd76a5d4f\")."
+      }
+    ]
+  },
+  {
+    "type": "GROUP",
     "name": "additionalProperties",
     "displayName": "Additional Properties",
     "groupStyle": "ZIPPY_CLOSED",
@@ -279,36 +387,36 @@ const getGadvId = () => {
 };
 
 // Sets user information and hashes the value if provided in raw form
-//const getUserInformation = () => {
-//  let userData = {};
-//  
-//  if (data.isHashed){
-//    log("[INFO] User data is hashed.");
-//    if (data.hashedEmail && isValidSHA256(data.hashedEmail)) userData.email = data.hashedEmail;
-//    if (data.hashedCpf && isValidSHA256(data.hashedCpf)) userData.cpf = data.hashedCpf;
-//    if (data.hashedPhone && isValidSHA256(data.hashedPhone)) userData.phone = data.hashedPhone;
-//  } else {
-//    if (data.email) sha256(data.email, (hashedValue) => {
-//    userData.email = hashedValue;
-//    data.gtmOnSuccess();
-//    }, data.gtmOnFailure(),
-//     {outputEncoding: 'hex'});
-//    
-//    if (data.cpf) sha256(data.cpf, (hashedValue) => {
-//    userData.cpf = hashedValue;
-//    data.gtmOnSuccess();
-//    }, data.gtmOnFailure(),
-//   {outputEncoding: 'hex'});
-//    
-//    if (data.phone) sha256(data.phone, (hashedValue) => {
-//    userData.phone = hashedValue;
-//    data.gtmOnSuccess();
-//    }, data.gtmOnFailure(),
-//    {outputEncoding: 'hex'});
-//  }
-//  if (userData.length > 0) return null;
-//  return userData;
-//};
+const getUserInformation = () => {
+  let userData = {};
+  
+  if (data.isHashed){
+    log("[INFO] User data is hashed.");
+    if (data.hashedEmail && isValidSHA256(data.hashedEmail)) userData.email = data.hashedEmail;
+    if (data.hashedCpf && isValidSHA256(data.hashedCpf)) userData.cpf = data.hashedCpf;
+    if (data.hashedPhone && isValidSHA256(data.hashedPhone)) userData.phone = data.hashedPhone;
+  } else {
+    if (data.email) sha256(data.email, (hashedValue) => {
+    userData.email = hashedValue;
+    data.gtmOnSuccess();
+    }, data.gtmOnFailure(),
+     {outputEncoding: 'hex'});
+    
+    if (data.cpf) sha256(data.cpf, (hashedValue) => {
+    userData.cpf = hashedValue;
+    data.gtmOnSuccess();
+    }, data.gtmOnFailure(),
+    {outputEncoding: 'hex'});
+    
+    if (data.phone) sha256(data.phone, (hashedValue) => {
+    userData.phone = hashedValue;
+    data.gtmOnSuccess();
+    }, data.gtmOnFailure(),
+    {outputEncoding: 'hex'});
+  }
+  if (userData.length > 0) return null;
+  return userData;
+};
 
 // Validates that content is not empty and can be parsed as JSON
 const isContentValid = () => {
@@ -362,8 +470,8 @@ const main = () => {
   pixelData.url = getUrl();
   
   // Optional fields
-  //var userData = getUserInformation();
-  //if (userData) pixelData.userInformation = userData;
+  var userData = getUserInformation();
+  if (userData) pixelData.userInformation = userData;
   
   if (data.orderId) pixelData.orderId = data.orderId;
   if (data.actionValue) pixelData.actionValue = data.actionValue;
@@ -751,7 +859,7 @@ scenarios:
     assertApi("setCookie").wasCalled(1);
 
     // Called to hash email and cpf
-    //assertApi("sha256").wasCalled(2);
+    assertApi("sha256").wasCalled(2);
 
     // Called to generate GLBID and actionTs
     assertApi("getTimestampMillis").wasCalled(2);
@@ -821,7 +929,7 @@ scenarios:
     assertApi("setCookie").wasCalled(2);
 
     // Called to hash email and cpf
-    //assertApi("sha256").wasCalled(2);
+    assertApi("sha256").wasCalled(2);
 
     assertApi("injectScript").wasCalled(1);
     assertApi("gtmOnSuccess").wasCalled();
@@ -855,7 +963,7 @@ scenarios:
     assertThat(infos).contains("[INFO] browserId: GLBID.12345");
 
     // Called to hash email and cpf
-    //assertApi("sha256").wasCalled(2);
+    assertApi("sha256").wasCalled(2);
 
     assertApi("injectScript").wasCalled(1);
     assertApi("gtmOnSuccess").wasCalled();
