@@ -1,6 +1,10 @@
 homepage: "https://github.com/globoi/horizon-gtm-pixel-template/tree/main"
 documentation: "https://github.com/globoi/horizon-gtm-pixel-template/blob/main/README.md"
 versions:
+  - sha: 3448dd1458478835b352ae2c7f158fb4f0d58b94
+    changeNotes:
+      Version 1.1.1
+      Fix AddToWishList actionType
   - sha: e2d0ac104e37937136fbff1624af8919adc8fed5
     changeNotes:
       Version 1.1.0
