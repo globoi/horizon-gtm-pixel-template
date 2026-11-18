@@ -1,6 +1,10 @@
 # Changelog
 
-## [1.1,1] - 2026-10-16
+## [1.2.0] - 2026-11-18
+### Added
+- Add new action types to template
+
+## [1.1.1] - 2026-10-16
 ### Fixed
 - Fix actionType AddToWishlist to AddToWishList
   

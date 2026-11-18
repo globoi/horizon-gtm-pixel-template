@@ -1,6 +1,10 @@
 homepage: "https://github.com/globoi/horizon-gtm-pixel-template/tree/main"
 documentation: "https://github.com/globoi/horizon-gtm-pixel-template/blob/main/README.md"
 versions:
+  - sha: 544325bf78d670917cf7a0612e24ad5312d6cab5
+    changeNotes:
+      Version 1.2.0
+      Add new action types
   - sha: 3448dd1458478835b352ae2c7f158fb4f0d58b94
     changeNotes:
       Version 1.1.1
